@@ -20,12 +20,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     m4 \
     && rm -rf /var/lib/apt/lists/*
 
+ENV MPICC="mpiicc -cc=icx"
+ENV MPIF90="mpiifort -fc=ifx"
+
 # Download, compile, and install PnetCDF
 RUN wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && tar xzf pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && cd pnetcdf-${PNETCDF_VERSION} \
     && autoreconf -i \
-    && ./configure --prefix=${PNETCDF_PREFIX} --enable-shared --disable-static MPICC=mpicc\
+    && ./configure --prefix=${PNETCDF_PREFIX} --enable-shared --disable-static\
     && make \
     && make install \
     && cd /tmp \
