@@ -15,16 +15,12 @@ RUN apt-get update \
 ENV PNETCDF_VERSION=1.12.3
 ENV PNETCDF_PREFIX=/opt/pnetcdf
 
-# PnetCDF needs this variables (could be set in "minimal" step)
-ENV MPICC=mpicc
-ENV CXX=icpx
-
 # Download, build, and install PnetCDF
 RUN mkdir -p /tmp/pnetcdf_src \
     && wget -qO- https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz | tar -xz -C /tmp/pnetcdf_src --strip-components=1 \
     && cd /tmp/pnetcdf_src \
-    && ./configure --prefix=${PNETCDF_PREFIX} --disable-shared \
-    && make -j \
+    && ./configure --prefix=${PNETCDF_PREFIX} --disable-shared --with-mpi=/opt/intel/oneapi/compiler/2025.3 \
+    && make -j 8 \
     && make install \
     &&rm -rf /tmp/pnetcdf_src
 
