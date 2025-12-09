@@ -25,12 +25,12 @@ jobs:
           build-args: TOOLCHAIN=${{ matrix.toolchain }}
           tags: add-netcdf:${{ matrix.toolchain }}
 
-#      -name: Build add-pnetcdf:${{ matrix.toolchain }}
-#       uses: docker/build-push-action@v6
-#       with:
-#          file: Dockerfile-add-pnetcdf
-#          build-args: TOOLCHAIN=${{ matrix.toolchain }}
-#          tags: add-pnetcdf:${{ matrix.toolchain }}
+      -name: Build add-pnetcdf:${{ matrix.toolchain }}
+       uses: docker/build-push-action@v6
+       with:
+          file: Dockerfile-add-pnetcdf
+          build-args: TOOLCHAIN=${{ matrix.toolchain }}
+          tags: add-pnetcdf:${{ matrix.toolchain }}
 
       - name: Build add-python:${{ matrix.toolchain }}
         uses: docker/build-push-action@v6
