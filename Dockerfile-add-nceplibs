@@ -6,18 +6,18 @@ ARG TOOLCHAIN
 FROM minimal-toolchain:$TOOLCHAIN
 
 # Install bacio library
-ENV BACIOVERSION=2.4.1
+ENV BACIO_VERSION=2.4.1
 ENV BACIO_ROOT=/opt/bacio
-RUN git clone --branch v${BACIOVERSION} https://github.com/NOAA-EMC/NCEPLIBS-bacio.git bacio \
-  && cd ${BACIO_ROOT} && mkdir build && cd build \
-  && cmake .. \
+RUN git clone --branch v${BACIO_VERSION} https://github.com/NOAA-EMC/NCEPLIBS-bacio.git bacio \
+  && cd bacio && mkdir build && cd build \
+  && cmake -DCMAKE_INSTALL_PREFIX=${BACIO_ROOT} .. \
   && make -j2 \
   && make install
 
 # Install SP-library
-ENV SPVERSION=2.3.3
+ENV SP_VERSION=2.3.3
 ENV SP_ROOT=/opt/NCEPLIBS-sp
 
 # Install w3emc library
-ENV W3VERSION=2.9.2
+ENV W3EMC_VERSION=2.9.2
 ENV W3EMC_ROOT=/opt/NCEPLIBS-w3emc
