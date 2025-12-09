@@ -1,0 +1,21 @@
+#
+# Install NCEPlibs and its dependencies
+#
+
+ARG TOOLCHAIN
+FROM minimal-toolchain:$TOOLCHAIN
+
+# Install bacio library
+ENV BACIOVERSION=2.4.1
+ENV BACIO_ROOT=/opt/bacio
+RUN git clone --branch v${BACIOVERSION} https://github.com/NOAA-EMC/NCEPLIBS-bacio.git bacio \
+  && cd ${BACIO_ROOT} && mkdir build && cd build \
+  && cmake .. \
+  && make -j2 \
+  && make install
+
+# Install SP-library
+ARG SPVERSION=2.3.3
+
+# Install w3emc library
+ARF W3VERSION=2.9.2
