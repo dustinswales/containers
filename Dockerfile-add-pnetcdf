@@ -16,13 +16,14 @@ ENV PNETCDF_VERSION=1.12.3
 ENV PNETCDF_PREFIX=/opt/pnetcdf
 
 # Download, build, and install PnetCDF
-RUN mkdir -p /tmp/pnetcdf_src && \
-    wget -qO- https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz | tar -xz -C /tmp/pnetcdf_src --strip-components=1 && \
-    cd /tmp/pnetcdf_src && \
-    CC=mpicc CXX=mpicxx FC=mpifort ./configure --prefix=${PNETCDF_PREFIX} --disable-shared && \
-    make -j$(nproc) && \
-    make install && \
-    rm -rf /tmp/pnetcdf_src
+RUN mkdir -p /tmp/pnetcdf_src \
+    && wget -qO- https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz | tar -xz -C /tmp/pnetcdf_src --strip-components=1 \
+    && cd /tmp/pnetcdf_src \
+    && FC=ifx CC=icx CXX=icpx \
+    && CC=mpicc CXX=mpicxx FC=mpifort ./configure --prefix=${PNETCDF_PREFIX} --disable-shared \
+    && make -j \
+    && make install \
+    &&rm -rf /tmp/pnetcdf_src
 
 # Add PnetCDF library path to the environment
 ENV PATH="${PNETCDF_PREFIX}/bin:${PATH}"
