@@ -26,9 +26,6 @@ RUN wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.ta
     && tar xzf pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && cd pnetcdf-${PNETCDF_VERSION} \
     && autoreconf -i \
-    && export CC="mpiicc -cc=icx" \
-    && export FC="mpiifort -fc=ifx" \
-    && export F77="mpiifort -fc=ifx" \
     && ./configure --prefix=${INSTALL_PREFIX} --enable-shared --disable-static \
     && make \
     && make install \
