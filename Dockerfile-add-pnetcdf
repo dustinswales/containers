@@ -8,9 +8,9 @@ FROM minimal-toolchain:$TOOLCHAIN
 # Set environment variables for PnetCDF installation
 ENV PNETCDF_VERSION=1.14.1
 ENV PNETCDF_PREFIX=/opt/pnetcdf
-ENV PATH=$PNETCDF_PREFIX/bin:$PATH
-ENV LD_LIBRARY_PATH=$PNETCDF_PREFIX/lib:$LD_LIBRARY_PATH
-ENV PKG_CONFIG_PATH=$PNETCDF_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH
+ENV PATH="${PNETCDF_PREFIX}/bin:${PATH}"
+ENV LD_LIBRARY_PATH="${PNETCDF_PREFIX}/lib:{$LD_LIBRARY_PATH}"
+ENV PKG_CONFIG_PATH="${PNETCDF_PREFIX}/lib/pkgconfig:${PKG_CONFIG_PATH}"
 
 # Update and install necessary build tools
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -26,7 +26,7 @@ RUN wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.ta
     && tar xzf pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && cd pnetcdf-${PNETCDF_VERSION} \
     && autoreconf -i \
-    && ./configure --prefix=${INSTALL_PREFIX} --enable-shared --disable-static \
+    && ./configure --prefix=${PNETCDF_PREFIX} --enable-shared --disable-static \
     && make \
     && make install \
     && cd /tmp \
