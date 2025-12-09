@@ -36,7 +36,7 @@ jobs:
         if: ${{ github.ref == 'refs/heads/ci_images' }}
         uses: docker/login-action@v3
         with:
-          username: ${{ secrets.DOCKEHUB_USERNAME }}
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
 #      - name: Log in to the Container registry
@@ -47,12 +47,12 @@ jobs:
 #          username: ${{ github.actor }}
 #          password: ${{ secrets.GITHUB_TOKEN }}
 #
-#      - name: Build and push rte-rrtmgp-ci:${{ matrix.toolchain }}
-#        uses: docker/build-push-action@v6
-#        with:
-#          file: Dockerfile-finalize
-#          build-args: TOOLCHAIN=${{ matrix.toolchain }}
-#          push: ${{ github.ref == 'refs/heads/ci_images' }}
-#          tags: |
-#            earthsystemradiation/rte-rrtmgp-ci:${{ matrix.toolchain }}
-#            ghcr.io/earth-system-radiation/rte-rrtmgp-ci:${{ matrix.toolchain }}
+      - name: Build and push ccpp-scm-ci:${{ matrix.toolchain }}
+        uses: docker/build-push-action@v6
+        with:
+          file: Dockerfile-finalize
+          build-args: TOOLCHAIN=${{ matrix.toolchain }}
+          push: ${{ github.ref == 'refs/heads/ci_images' }}
+          tags: |
+            dustinswales/ccpp-scm-ci:${{ matrix.toolchain }}
+#            ghcr.io/NCAR/ccpp-scm-ci:${{ matrix.toolchain }}
