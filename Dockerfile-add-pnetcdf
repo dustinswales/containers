@@ -21,12 +21,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 # Download, compile, and install PnetCDF
-WORKDIR /tmp
 RUN wget https://parallel-netcdf.github.io/Release/pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && tar xzf pnetcdf-${PNETCDF_VERSION}.tar.gz \
     && cd pnetcdf-${PNETCDF_VERSION} \
     && autoreconf -i \
-    && ./configure --prefix=${PNETCDF_PREFIX} --enable-shared --disable-static \
+    && ./configure --prefix=${PNETCDF_PREFIX} --enable-shared --disable-static MPICC=mpicc\
     && make \
     && make install \
     && cd /tmp \
