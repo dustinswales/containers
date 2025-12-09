@@ -25,12 +25,12 @@ jobs:
           build-args: TOOLCHAIN=${{ matrix.toolchain }}
           tags: add-netcdf:${{ matrix.toolchain }}
 
-      - name: Build add-NCEPlibs:${{ matrix.toolchain }}
+      - name: Build add-nceplibs:${{ matrix.toolchain }}
         uses: docker/build-push-action@v6
         with:
-          file: Dockerfile-add-NCEPlibs
+          file: Dockerfile-add-nceplibs
           build-args: TOOLCHAIN=${{ matrix.toolchain }}
-          tags: add-NCEPlibs:${{ matrix.toolchain }}
+          tags: add-nceplibs:${{ matrix.toolchain }}
 
 #      - name: Log in to Docker Hub
 #        if: ${{ github.ref == 'refs/heads/main' }}

@@ -15,7 +15,9 @@ RUN git clone --branch v${BACIOVERSION} https://github.com/NOAA-EMC/NCEPLIBS-bac
   && make install
 
 # Install SP-library
-ARG SPVERSION=2.3.3
+ENV SPVERSION=2.3.3
+ENV SP_ROOT=/opt/NCEPLIBS-sp
 
 # Install w3emc library
-ARF W3VERSION=2.9.2
+ENV W3VERSION=2.9.2
+ENV W3EMC_ROOT=/opt/NCEPLIBS-w3emc
