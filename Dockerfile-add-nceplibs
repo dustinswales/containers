@@ -8,6 +8,7 @@ FROM minimal-toolchain:$TOOLCHAIN
 # Install bacio library
 ENV BACIO_VERSION=2.4.1
 ENV BACIO_ROOT=/opt/bacio
+ENV BACIO_DIR=${BACIO_ROOT}/lib/cmake/bacio
 RUN git clone --branch v${BACIO_VERSION} https://github.com/NOAA-EMC/NCEPLIBS-bacio.git bacio \
   && cd bacio && mkdir build && cd build \
   && cmake -DCMAKE_INSTALL_PREFIX=${BACIO_ROOT} .. \
